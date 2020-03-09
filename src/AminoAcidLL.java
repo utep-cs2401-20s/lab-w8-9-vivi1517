@@ -10,6 +10,7 @@ class AminoAcidLL{
 
 
   /********************************************************************************************/
+
   /* Creates a new node, with a given amino acid/codon 
    * pair and increments the codon counter for that codon.
    * NOTE: Does not check for repeats!! */
