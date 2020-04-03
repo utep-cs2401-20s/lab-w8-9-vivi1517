@@ -59,4 +59,14 @@ class AminoAcidResourcesTester{
     }
   }
 
+  @Test
+  public static void isSortedTest(){
+    String rna = "gcaugugaugagggg"; //ACDEG
+    AminoAcidLL head = new AminoAcidLL();
+    AminoAcidLL list = head.createFromRNASequence(rna);
+    assertTrue(list.isSorted());
+  }
+
+
+
 }
