@@ -19,15 +19,15 @@ class AminoAcidLL{
     codons = AminoAcidResources.getCodonListForAminoAcid((aminoAcid));
     counts = incrCodons(inCodon);
     next = null;
-            //write helper method
   }
 
   public int[] incrCodons(String codon){  //updates the counts for a specific codon//
-    int i = 0;
-    while (!codons[i].equals(codon)){
-      i++;
+    for (int i = 0; i < codons.length; i++){
+      if (codons[i].equals(codon)){
+        counts[i] += 1;
+      }
     }
-    counts[i] += 1;
+
     return counts;
   }
 
@@ -46,7 +46,7 @@ class AminoAcidLL{
       next.addCodon(inCodon);
     }
     else{ //the amino Acid does not exist//
-      AminoAcidLL next = new AminoAcidLL(inCodon);
+      next = new AminoAcidLL(inCodon);
     }
   }
 
@@ -55,7 +55,7 @@ class AminoAcidLL{
   /* Shortcut to find the total number of instances of this amino acid */
   private int totalCount(){
     int sum = 0;
-    for (int i = 0; i < counts.length; i++){
+    for (int i = 0; i < codons.length; i++){
       sum += counts[i];
     }
     return sum;
@@ -95,7 +95,7 @@ class AminoAcidLL{
       return inList.totalCount() + aminoAcidCompare(inList.next);
     }
     if (aminoAcid == inList.aminoAcid){
-      return (totalCount() - inList.totalCount()) + next.aminoAcidCompare(inList.next);
+      return ((totalCount() - inList.totalCount()) + next.aminoAcidCompare(inList.next));
     }
     else if (inList.aminoAcid > aminoAcid){
       return totalCount() + next.aminoAcidCompare(inList);
@@ -185,10 +185,13 @@ class AminoAcidLL{
     if (next == null){    //NEEDS TO BE CHECKED///////////////////
       return true;
     }
-    if(aminoAcid > next.aminoAcid){
-      next.isSorted();
+    else if(aminoAcid < next.aminoAcid){
+      return next.isSorted();
     }
-    return false;
+    else{
+      return false;
+    }
+
   }
 
 
@@ -196,7 +199,7 @@ class AminoAcidLL{
   /* Static method for generating a linked list from an RNA sequence */
   public static AminoAcidLL createFromRNASequence(String inSequence){ //NEEDS TO BE CHECKED////////
     AminoAcidLL list = new AminoAcidLL();
-    while (inSequence != ""){
+    while (!(inSequence.equals(""))){
       if (inSequence.length() <= 3){
         list.addCodon(inSequence);
         inSequence = "";
@@ -215,8 +218,8 @@ class AminoAcidLL{
   public static AminoAcidLL sort(AminoAcidLL inList){   //CONFUSED/////////
     AminoAcidLL head = new AminoAcidLL();
     head = inList;
-    AminoAcidLL iter = new AminoAcidLL();
-    iter = inList;
+    AminoAcidLL iter = inList;
+
     AminoAcidLL smallest = inList;
     while (inList != null) {
       while (iter != null) {

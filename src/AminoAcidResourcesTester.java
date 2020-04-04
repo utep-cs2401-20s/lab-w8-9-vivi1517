@@ -1,7 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.concurrent.TimeUnit;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import java.util.concurrent.TimeUnit;
 
 class AminoAcidResourcesTester{
 
@@ -59,13 +60,6 @@ class AminoAcidResourcesTester{
     }
   }
 
-  @Test
-  public static void isSortedTest(){
-    String rna = "gcaugugaugagggg"; //ACDEG
-    AminoAcidLL head = new AminoAcidLL();
-    AminoAcidLL list = head.createFromRNASequence(rna);
-    assertTrue(list.isSorted());
-  }
 
 
 
